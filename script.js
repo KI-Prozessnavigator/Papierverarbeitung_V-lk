@@ -22,7 +22,7 @@
     // Schließen bei Klick auf einen Link (Mobile)
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        if (window.innerWidth < 901) {
+        if (window.innerWidth <= 1100) {
           navToggle.setAttribute('aria-expanded', 'false');
           nav.classList.remove('is-open');
         }

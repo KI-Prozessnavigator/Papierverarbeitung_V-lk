@@ -111,17 +111,21 @@ ul {
 
 .header-inner {
   max-width: var(--container-max);
+  width: 100%;
   margin: 0 auto;
   padding: var(--space-sm) var(--space-lg);
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: var(--header-height);
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .site-header .logo {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .site-header .logo img {
@@ -166,10 +170,16 @@ ul {
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.nav {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
 .nav-list {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
+  min-width: 0;
 }
 
 .site-header .nav-list a {
@@ -178,6 +188,8 @@ ul {
   letter-spacing: 0.02em;
   color: var(--color-header-text-muted);
   transition: color var(--transition);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .site-header .nav-list a:hover {
@@ -193,6 +205,7 @@ ul {
   padding: 0.5em 1rem;
   font-size: 0.875rem;
   white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 /* ========== Hero ========== */
@@ -247,9 +260,11 @@ ul {
 
 /* ========== Container ========== */
 .container {
+  width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  box-sizing: border-box;
 }
 
 /* ========== Welcome Section ========== */
@@ -270,6 +285,11 @@ ul {
 
 .section-title--single-line {
   white-space: nowrap;
+}
+
+.section-title {
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .welcome-lead {
@@ -625,6 +645,34 @@ ul {
   text-align: center;
 }
 
+/* Warum Völk? – nur Mobil: Text zentrieren (Desktop unverändert) */
+@media (max-width: 767px) {
+  .why-voelk-inner {
+    text-align: center;
+  }
+
+  .why-voelk-heading {
+    text-align: center;
+  }
+
+  .why-voelk-content {
+    text-align: center;
+  }
+
+  .why-voelk-lead {
+    padding-left: 0;
+  }
+
+  .why-voelk-list {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .why-voelk-list li {
+    text-align: center;
+  }
+}
+
 /* ========== Kontakt-Sektion (Startseite) ========== */
 .contact-section {
   padding: var(--space-3xl) 0;
@@ -734,12 +782,16 @@ ul {
   padding: var(--space-2xl) 0 var(--space-lg);
   background: var(--color-bg-alt);
   border-bottom: 1px solid var(--color-border);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .machinenpark-intro-inner {
   max-width: 720px;
+  width: 100%;
   margin: 0 auto;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .machinenpark-intro-title {
@@ -749,6 +801,8 @@ ul {
   font-weight: 400;
   color: var(--color-text);
   white-space: nowrap;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machinenpark-intro-subtitle {
@@ -757,6 +811,8 @@ ul {
   font-weight: 500;
   color: var(--color-text-muted);
   line-height: 1.5;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machinenpark-intro-inner > p {
@@ -765,11 +821,15 @@ ul {
   font-size: 1rem;
   line-height: 1.7;
   color: var(--color-text-muted);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machinenpark-gallery {
   padding: var(--space-2xl) 0 var(--space-md);
   background: var(--color-bg);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .machine-grid {
@@ -779,6 +839,8 @@ ul {
   list-style: none;
   margin: 0 0 var(--space-xl);
   padding: 0;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .machine-card {
@@ -788,6 +850,8 @@ ul {
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
   transition: box-shadow var(--transition);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .machine-card:hover {
@@ -830,6 +894,9 @@ ul {
 
 .machine-card-body {
   padding: var(--space-xl);
+  min-width: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machine-card-title {
@@ -839,6 +906,8 @@ ul {
   font-weight: 600;
   color: var(--color-text);
   line-height: 1.2;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machine-card-body p {
@@ -846,6 +915,8 @@ ul {
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--color-text-muted);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machinenpark-cta {
@@ -860,6 +931,8 @@ ul {
   font-size: 1.125rem;
   line-height: 1.6;
   color: var(--color-text);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .machinenpark-cta-text:last-of-type {
@@ -937,6 +1010,8 @@ ul {
   padding: var(--space-2xl) 0 var(--space-xl);
   background: var(--color-bg-alt);
   border-bottom: 1px solid var(--color-border);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 
@@ -947,6 +1022,8 @@ ul {
   font-weight: 400;
   color: var(--color-text);
   line-height: 1.2;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .page-lead {
@@ -954,10 +1031,31 @@ ul {
   font-size: 1.125rem;
   color: var(--color-text-muted);
   line-height: 1.5;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .page-lead--single-line {
   white-space: nowrap;
+}
+
+/* Overflow-Fix: Umbruch auf schmalen Viewports (nur technisch, kein Design) */
+@media (max-width: 600px) {
+  .page-lead--single-line {
+    white-space: normal;
+  }
+
+  .section-title--single-line {
+    white-space: normal;
+  }
+
+  .machinenpark-intro-title {
+    white-space: normal;
+  }
+
+  .nav-cta a {
+    white-space: normal;
+  }
 }
 
 .page-content {
@@ -1307,13 +1405,19 @@ ul {
   gap: var(--space-xl);
   align-items: start;
   text-align: left;
+  width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .footer-brand {
   max-width: 260px;
+  min-width: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .footer-brand .footer-logo {
@@ -1334,6 +1438,8 @@ ul {
   font-size: 0.8125rem;
   line-height: 1.45;
   color: var(--color-header-text-muted);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .footer-col h3 {
@@ -1361,11 +1467,17 @@ ul {
   margin-bottom: 2px;
 }
 
+.footer-col {
+  min-width: 0;
+}
+
 .footer-col a {
   font-size: 0.8125rem;
   color: var(--color-header-text-muted);
   text-decoration: none;
   transition: color var(--transition);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .footer-col a:hover {
@@ -1377,6 +1489,8 @@ ul {
   font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--color-header-text-muted);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .footer-contact a {
@@ -1397,6 +1511,7 @@ ul {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
+  min-width: 0;
 }
 
 .footer-copy {
@@ -1405,6 +1520,10 @@ ul {
   color: var(--color-header-text-muted);
   line-height: 1.4;
   text-align: left;
+  min-width: 0;
+  flex-shrink: 1;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .footer-to-top {
@@ -1440,7 +1559,31 @@ ul {
 }
 
 /* ========== Responsive ========== */
-@media (max-width: 900px) {
+/* Desktop: Volles Menü, kein Umbruch – Nav bleibt einzeilig */
+@media (min-width: 1101px) {
+  .nav-toggle {
+    display: none !important;
+  }
+
+  .nav {
+    position: relative;
+    max-height: none;
+    overflow: visible;
+    flex-shrink: 0;
+    min-width: auto;
+  }
+
+  .nav-list {
+    flex-wrap: nowrap;
+  }
+
+  .nav-list a {
+    white-space: nowrap;
+  }
+}
+
+/* Burger-Menü: ab Breite, bei der die Zeilen umbrechen würden */
+@media (max-width: 1100px) {
   .nav-toggle {
     display: flex;
   }
@@ -1458,13 +1601,15 @@ ul {
   }
 
   .nav.is-open {
-    max-height: 320px;
+    max-height: min(600px, 96vh);
   }
 
   .nav-list {
     flex-direction: column;
     padding: var(--space-lg);
     gap: 0;
+    align-items: stretch;
+    white-space: normal;
   }
 
   .nav-list li {
@@ -1511,7 +1656,9 @@ ul {
     white-space: normal;
   }
 
+  /* Welcome-Bereich: kein Überlappen mit Hero, Überschrift oben im Block (nicht vertikal mittig) */
   .welcome {
+    margin-top: 0;
     padding: var(--space-2xl) 0;
   }
 
