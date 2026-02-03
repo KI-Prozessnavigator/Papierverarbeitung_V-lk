@@ -272,6 +272,13 @@ ul {
   margin-top: -45px;
   padding: var(--space-3xl) 0;
   text-align: center;
+  overflow-x: visible;
+}
+
+.welcome .container {
+  text-align: center;
+  position: relative;
+  overflow-x: visible;
 }
 
 .section-title {
@@ -281,6 +288,22 @@ ul {
   font-weight: 400;
   color: var(--color-text);
   line-height: 1.3;
+}
+
+/*
+ * Ursache Linksbündigkeit (2 Effekte):
+ * 1) text-align:center + inline-block: bei Überhang wurde nur der linke Teil sichtbar.
+ * 2) margin-left:50% + translateX(-50%) + max-width:100%: max-width macht die h2
+ *    so breit wie der Container → translateX(-50%) verschiebt um die Hälfte davon
+ *    → linke Kante landet bei 0 → wirkt linksbündig.
+ * Lösung: Zentrierung OHNE max-width auf Desktop; max-width nur auf Mobil für Umbruch.
+ */
+.welcome .section-title {
+  display: block;
+  width: max-content;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 .section-title--single-line {
@@ -624,6 +647,10 @@ ul {
   font-size: 1.0625rem;
   color: var(--color-text-muted);
   line-height: 1.6;
+}
+
+.why-voelk-lead .nowrap {
+  white-space: nowrap;
 }
 
 .why-voelk-list {
@@ -1047,6 +1074,11 @@ ul {
 
   .section-title--single-line {
     white-space: normal;
+  }
+
+  /* Willkommens-Überschrift: auf Mobil Umbruch erlauben (max-width nur hier) */
+  .welcome .section-title {
+    max-width: 100%;
   }
 
   .machinenpark-intro-title {
