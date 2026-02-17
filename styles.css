@@ -291,12 +291,8 @@ ul {
 }
 
 /*
- * Ursache Linksbündigkeit (2 Effekte):
- * 1) text-align:center + inline-block: bei Überhang wurde nur der linke Teil sichtbar.
- * 2) margin-left:50% + translateX(-50%) + max-width:100%: max-width macht die h2
- *    so breit wie der Container → translateX(-50%) verschiebt um die Hälfte davon
- *    → linke Kante landet bei 0 → wirkt linksbündig.
- * Lösung: Zentrierung OHNE max-width auf Desktop; max-width nur auf Mobil für Umbruch.
+ * Desktop (breiter Viewport): einzeilig mittig, ggf. Überhang links/rechts.
+ * Schmaler Viewport: Umbruch (Media-Query max-width: 1024px), damit nicht abgeschnitten.
  */
 .welcome .section-title {
   display: block;
@@ -304,6 +300,8 @@ ul {
   margin-left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .section-title--single-line {
@@ -708,6 +706,8 @@ ul {
 
 .contact-section--page {
   padding-top: var(--space-xl);
+  margin-top: -40px;
+  border-top: 1px solid var(--color-border);
 }
 
 .contact-section-grid {
@@ -738,7 +738,8 @@ ul {
 }
 
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select {
   width: 100%;
   padding: 0.75rem 1rem;
   font-family: var(--font-body);
@@ -751,8 +752,14 @@ ul {
   transition: border-color var(--transition);
 }
 
+.contact-form select {
+  cursor: pointer;
+  appearance: auto;
+}
+
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form select:focus {
   outline: none;
   border-color: var(--color-accent);
 }
@@ -791,6 +798,11 @@ ul {
   white-space: nowrap;
 }
 
+.contact-form .form-row--checkbox label.label--bold {
+  font-weight: 700;
+  white-space: normal;
+}
+
 .contact-form .form-row--checkbox label a {
   color: var(--color-accent);
   text-decoration: underline;
@@ -804,10 +816,48 @@ ul {
   margin: var(--space-lg) 0 0;
 }
 
+.contact-form-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+.contact-form .form-footer {
+  margin-top: calc(var(--space-xl) - 40px);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.contact-form .form-footer .form-row--checkbox {
+  justify-content: center;
+  margin-bottom: var(--space-md);
+}
+
+.contact-form .form-footer .form-actions--center {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-form .form-footer .form-row--checkbox label {
+  white-space: normal;
+  text-align: left;
+}
+
+@media (min-width: 900px) {
+  .contact-form-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+}
+
 /* ========== Maschinenpark-Galerie ========== */
 .machinenpark-intro {
   padding: var(--space-2xl) 0 var(--space-lg);
   background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   max-width: 100%;
   box-sizing: border-box;
@@ -817,6 +867,7 @@ ul {
   max-width: 720px;
   width: 100%;
   margin: 0 auto;
+  margin-top: -20px;
   text-align: left;
   box-sizing: border-box;
 }
@@ -892,12 +943,22 @@ ul {
   background: var(--color-bg-alt);
 }
 
-.machine-card-image-wrap img {
+.machine-card-image-wrap img,
+.machine-card-placeholder {
   width: 100%;
   height: 100%;
+  display: block;
+}
+
+.machine-card-image-wrap img {
   object-fit: cover;
   filter: saturate(0.85);
   transition: filter var(--transition), transform var(--transition);
+}
+
+.machine-card-placeholder {
+  background: var(--color-bg-alt);
+  min-height: 100%;
 }
 
 .machine-card:hover .machine-card-image-wrap img {
@@ -1041,6 +1102,14 @@ ul {
   box-sizing: border-box;
 }
 
+.page-hero .container {
+  text-align: center;
+}
+
+.page-hero--contact {
+  display: flex;
+  align-items: center;
+}
 
 .page-title {
   margin: 0 0 var(--space-sm);
@@ -1066,6 +1135,20 @@ ul {
   white-space: nowrap;
 }
 
+/* Willkommens-Überschrift: ab dieser Breite umbrechen, kein Abschneiden beim Verkleinern */
+@media (max-width: 1024px) {
+  .welcome .section-title.section-title--single-line {
+    white-space: normal;
+  }
+
+  .welcome .section-title {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+}
+
 /* Overflow-Fix: Umbruch auf schmalen Viewports (nur technisch, kein Design) */
 @media (max-width: 600px) {
   .page-lead--single-line {
@@ -1074,11 +1157,6 @@ ul {
 
   .section-title--single-line {
     white-space: normal;
-  }
-
-  /* Willkommens-Überschrift: auf Mobil Umbruch erlauben (max-width nur hier) */
-  .welcome .section-title {
-    max-width: 100%;
   }
 
   .machinenpark-intro-title {
@@ -1456,6 +1534,13 @@ ul {
   display: flex;
   align-items: center;
   margin-bottom: var(--space-xs);
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--transition);
+}
+
+.footer-brand .footer-logo:hover {
+  opacity: 0.9;
 }
 
 .footer-logo img {
@@ -1726,7 +1811,7 @@ ul {
 }
 
 @media (min-width: 900px) {
-  .contact-section-grid {
+  .contact-section-grid:not(.contact-form-grid) {
     grid-template-columns: 1fr 380px;
     gap: var(--space-3xl);
     align-items: start;
